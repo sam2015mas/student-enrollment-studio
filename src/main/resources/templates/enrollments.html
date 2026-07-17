@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Student Course Registration — Enrollments</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-inner">
+        <h1>🎓 Student Course Registration System</h1>
+        <nav>
+            <a th:href="@{/}">Search</a>
+            <a th:href="@{/enrollments}" class="active">Enrollments</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+
+    <section class="results-section">
+
+        <!-- Page title changes based on whether we arrived from a search -->
+        <h2 th:if="${keyword != null and keyword != ''}">
+            Enrollment Results for "<span th:text="${keyword}"></span>"
+        </h2>
+        <h2 th:unless="${keyword != null and keyword != ''}">
+            All Enrollment Records
+        </h2>
+
+        <div class="results-meta">
+            <strong th:text="${totalCount}"></strong> record(s) found.
+            <a th:href="@{/}" class="view-all-link">← Back to Search</a>
+        </div>
+
+        <!-- No results -->
+        <div th:if="${#lists.isEmpty(enrollments)}" class="no-results">
+            <p th:if="${keyword != null and keyword != ''}">
+                No enrollment records match "<strong th:text="${keyword}"></strong>".
+                <a th:href="@{/}">Try another search →</a>
+            </p>
+            <p th:unless="${keyword != null and keyword != ''}">
+                No enrollment records exist yet.
+            </p>
+        </div>
+
+        <!-- Results table -->
+        <div th:unless="${#lists.isEmpty(enrollments)}" class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Enroll ID</th>
+                        <th>Student Name</th>
+                        <th>Email</th>
+                        <th>Major</th>
+                        <th>Course Code</th>
+                        <th>Course Name</th>
+                        <th>Credits</th>
+                        <th>Instructor</th>
+                        <th>Semester</th>
+                        <th>Grade</th>
+                        <th>Enrolled On</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--
+                        th:each iterates the enrollments list.
+                        iterStat exposes:
+                          iterStat.count  – 1-based row counter
+                          iterStat.odd / iterStat.even – for row striping
+                          iterStat.first / iterStat.last – boundary flags
+                    -->
+                    <tr th:each="enrollment, iterStat : ${enrollments}"
+                        th:classappend="${iterStat.odd} ? 'row-odd' : 'row-even'">
+                        <td class="center" th:text="${iterStat.count}"></td>
+                        <td class="center" th:text="${enrollment.enrollmentId}"></td>
+                        <td th:text="${enrollment.fullName}"></td>
+                        <td th:text="${enrollment.email}"></td>
+                        <td th:text="${enrollment.major}"></td>
+                        <td class="center badge-cell">
+                            <span class="badge" th:text="${enrollment.courseCode}"></span>
+                        </td>
+                        <td th:text="${enrollment.courseName}"></td>
+                        <td class="center" th:text="${enrollment.credits}"></td>
+                        <td th:text="${enrollment.instructor}"></td>
+                        <td th:text="${enrollment.semester}"></td>
+                        <td class="center grade-cell"
+                            th:text="${enrollment.grade != null ? enrollment.grade : '—'}"></td>
+                        <td class="center" th:text="${enrollment.enrollmentDate}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+
+</main>
+
+<footer class="site-footer">
+    <p>Student Course Registration System &copy; 2025 — Powered by Spring Boot + MyBatis + PostgreSQL</p>
+</footer>
+
+</body>
+</html>

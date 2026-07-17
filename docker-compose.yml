@@ -1,0 +1,52 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: enrollment-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: itc475
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-Admin123}
+    volumes:
+      - pgdata:/var/lib/postgresql
+      # DDL/seed scripts auto-run once, in filename order, on first init
+      - ./db/01_create_tables.sql:/docker-entrypoint-initdb.d/01_create_tables.sql:ro
+      - ./db/02_insert_data.sql:/docker-entrypoint-initdb.d/02_insert_data.sql:ro
+    ports:
+      - "5432:5432"          # exposed to host for local psql/debugging only
+    networks:
+      - enrollment-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d itc475"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: enrollment-app
+    restart: unless-stopped
+    environment:
+      # Note: hostname "postgres" resolves via Docker's embedded DNS
+      # because both containers share the enrollment-net network.
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/itc475
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:-Admin123}
+    ports:
+      - "8081:8080"   # host 8081 avoids conflict with mwccdc_c already on 8080
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - enrollment-net
+
+networks:
+  enrollment-net:
+    driver: bridge
+    name: enrollment-net
+
+volumes:
+  pgdata:
+    name: enrollment-pgdata

@@ -1,0 +1,267 @@
+/* ═══════════════════════════════════════════════════════════════
+   Student Profile – Global Stylesheet
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Reset & base ───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 15px;
+    background: #f0f4f8;
+    color: #1e293b;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── Header ─────────────────────────────────────────────────── */
+.site-header {
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    color: #fff;
+    padding: 0 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.25);
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+}
+
+.site-header h1 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: .3px;
+}
+
+.site-header nav a {
+    color: rgba(255,255,255,.85);
+    text-decoration: none;
+    margin-left: 24px;
+    font-size: .9rem;
+    padding: 4px 10px;
+    border-radius: 4px;
+    transition: background .2s;
+}
+
+.site-header nav a:hover,
+.site-header nav a.active {
+    background: rgba(255,255,255,.2);
+    color: #fff;
+}
+
+/* ── Main container ─────────────────────────────────────────── */
+.container {
+    max-width: 1200px;
+    margin: 32px auto;
+    padding: 0 24px;
+    flex: 1;
+}
+
+/* ── Profile card (index page) ──────────────────────────────── */
+.profile-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 32px 36px;
+    box-shadow: 0 1px 6px rgba(0,0,0,.1);
+    max-width: 540px;
+}
+
+.profile-card h2 {
+    font-size: 1.25rem;
+    color: #1e40af;
+    margin-bottom: 20px;
+}
+
+.profile-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+}
+
+.profile-table th,
+.profile-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: left;
+}
+
+.profile-table th {
+    width: 35%;
+    color: #64748b;
+    font-weight: 600;
+    font-size: .85rem;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+.profile-cta { margin-top: 8px; }
+
+/* ── Search section ─────────────────────────────────────────── */
+.search-section {
+    background: #fff;
+    border-radius: 10px;
+    padding: 28px 32px;
+    box-shadow: 0 1px 6px rgba(0,0,0,.1);
+    margin-bottom: 24px;
+}
+
+.search-section h2 {
+    font-size: 1.2rem;
+    color: #1e40af;
+    margin-bottom: 4px;
+}
+
+.hint {
+    color: #64748b;
+    font-size: .88rem;
+    margin-bottom: 16px;
+}
+
+.search-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.search-input {
+    flex: 1;
+    min-width: 220px;
+    padding: 9px 14px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: .95rem;
+    transition: border-color .2s, box-shadow .2s;
+    outline: none;
+}
+
+.search-input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59,130,246,.15);
+}
+
+/* ── Buttons ─────────────────────────────────────────────────── */
+.btn-primary {
+    display: inline-block;
+    background: #1e40af;
+    color: #fff;
+    border: none;
+    padding: 9px 20px;
+    border-radius: 6px;
+    font-size: .92rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background .2s, transform .1s;
+}
+
+.btn-primary:hover { background: #1e3a8a; transform: translateY(-1px); }
+
+.btn-secondary {
+    display: inline-block;
+    background: #e2e8f0;
+    color: #475569;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 6px;
+    font-size: .92rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background .2s;
+}
+
+.btn-secondary:hover { background: #cbd5e1; }
+
+/* ── Results section ─────────────────────────────────────────── */
+.results-section {
+    background: #fff;
+    border-radius: 10px;
+    padding: 24px 28px;
+    box-shadow: 0 1px 6px rgba(0,0,0,.1);
+}
+
+.results-meta {
+    color: #64748b;
+    font-size: .9rem;
+    margin-bottom: 16px;
+}
+
+.results-meta strong { color: #1e293b; }
+
+.no-results {
+    text-align: center;
+    padding: 40px 0;
+    color: #94a3b8;
+    font-size: 1rem;
+}
+
+/* ── Data table ──────────────────────────────────────────────── */
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .88rem;
+    min-width: 900px;
+}
+
+.data-table thead tr {
+    background: #1e40af;
+    color: #fff;
+}
+
+.data-table thead th {
+    padding: 11px 12px;
+    text-align: left;
+    font-weight: 600;
+    letter-spacing: .3px;
+    white-space: nowrap;
+}
+
+.data-table tbody td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: middle;
+}
+
+.data-table tbody tr.row-even { background: #f8fafc; }
+.data-table tbody tr.row-odd  { background: #fff; }
+
+.data-table tbody tr:hover { background: #eff6ff; transition: background .15s; }
+
+.center { text-align: center; }
+
+/* Course code badge */
+.badge {
+    display: inline-block;
+    background: #dbeafe;
+    color: #1e40af;
+    font-weight: 700;
+    font-size: .8rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+    letter-spacing: .4px;
+}
+
+/* Grade cell coloring */
+.grade-cell { font-weight: 700; }
+
+/* ── Footer ─────────────────────────────────────────────────── */
+.site-footer {
+    text-align: center;
+    padding: 18px 0;
+    color: #94a3b8;
+    font-size: .82rem;
+    border-top: 1px solid #e2e8f0;
+    margin-top: auto;
+    background: #fff;
+}
